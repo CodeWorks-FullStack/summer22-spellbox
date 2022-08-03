@@ -1,0 +1,5 @@
+/* BASIC STYLES HERE */
+.right-bar, .left-bar{
+  height: 100vh;
+  overflow-y: auto;
+}
