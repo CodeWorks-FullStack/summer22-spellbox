@@ -7,7 +7,6 @@ export class ActiveSpell {
     } catch (error) {
       this.description = 'unable to translate.....'
     }
-    this.damage = data.damage_type || data.damage
     this.level = data.level
     this.range = data.range
     this.material = data.material

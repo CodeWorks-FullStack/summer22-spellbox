@@ -25,7 +25,6 @@ function _draw() {
 
 export class SandboxSpellsController {
 
-
   constructor() {
     ProxyState.on('sandboxSpells', _draw)
     this.getSpells()
@@ -57,7 +56,6 @@ export class SandboxSpellsController {
       const yes = await Pop.confirm('Delete Spell')
       if (!yes) { return } // Full Stop 
 
-
       await sandboxSpellsService.deleteSpell(id)
     } catch (error) {
       console.error('[Delete Spell]', error)
@@ -65,5 +63,13 @@ export class SandboxSpellsController {
     }
   }
 
+  async toggleSpell(spellId) {
+    try {
+      await sandboxSpellsService.toggleSpell(spellId)
+    } catch (error) {
+      console.error('[Toggle Spell]', error)
+      Pop.error(error)
+    }
+  }
 
 }

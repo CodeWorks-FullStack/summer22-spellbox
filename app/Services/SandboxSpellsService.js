@@ -3,6 +3,31 @@ import { SandboxSpell } from "../Models/SandboxSpell.js"
 import { sandboxApi } from "./AxiosService.js"
 
 class SandboxSpellsService {
+  async toggleSpell(spellId) {
+    // modify the data 
+    // flip the prepared bool
+
+    // find the spell
+    let spell = ProxyState.sandboxSpells.find(s => s.id == spellId)
+    
+    if(!spell){
+      throw new Error('Bad Spell id')
+    }
+
+    spell.prepared = !spell.prepared
+    let spellIndex = ProxyState.sandboxSpells.indexOf(spell)
+    // do the async stuff
+
+    let res = await sandboxApi.put(`/spells/${spellId}`, spell)
+
+    let updatedSpell = new SandboxSpell(res.data)
+
+    ProxyState.sandboxSpells.splice(spellIndex, 1, updatedSpell)
+
+    ProxyState.sandboxSpells = ProxyState.sandboxSpells
+
+  }
+
   async deleteSpell(id) {
     await sandboxApi.delete(`/spells/${id}`)
     ProxyState.sandboxSpells = ProxyState.sandboxSpells.filter(s => s.id != id)
